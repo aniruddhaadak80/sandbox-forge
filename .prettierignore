@@ -1,0 +1,13 @@
+node_modules
+dist
+.next
+coverage
+.turbo
+package-lock.json
+services/engine/.venv
+CHANGELOG.md
+
+# Golden certificates are byte-exact artefacts, not source. Prettier would reformat them into
+# pretty-printed JSON, which changes the bytes the golden test compares against and turns every
+# certificate into a false "this changed" failure. Their formatting is canonical_json().
+services/engine/tests/golden/

@@ -1,0 +1,15 @@
+{
+  "name": "frontier-deployment-pack",
+  "version": "0.1.0",
+  "description": "Capability pack for frontier-deployment risks: situational awareness, resource acquisition, and the oversight behaviours that make an evaluation untrustworthy.",
+  "enabled": true,
+  "priority": 60,
+  "capabilities": [
+    "taxonomy.frontier-deployment",
+    "probe.frontier.situational-awareness",
+    "probe.frontier.resource-acquisition"
+  ],
+  "engines": {
+    "@sandboxforge": "0.1.0"
+  }
+}

@@ -9,7 +9,9 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Nothing yet.
+- Every third-party GitHub Action is now pinned to a commit SHA with its version in a trailing
+  comment, which is the standard `docs/ci.md` already described but the workflows did not
+  follow. A mutable tag means anyone who compromises the tag owns the CI.
 
 ## [0.1.0] - 2026-01-01
 

@@ -9,7 +9,8 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Nothing yet.
+- The web-data drift gate (`npm run check:web-data`) now runs in CI, so the web app's copy of
+  the taxonomy and the certificate cannot drift from their source unnoticed.
 
 ## [0.1.0] - 2026-01-01
 

@@ -86,6 +86,10 @@ jobs:
       - run: npm run check:boundaries
       - run: npm run check:public-hygiene
       - run: npm run check:readme-commands
+      # The web app's copy of the taxonomy and the certificate is a build
+      # artefact (ADR 0003), and this gate is what keeps it honest: it fails
+      # when the committed copy has drifted from its source.
+      - run: npm run check:web-data
 
   test:
     name: Test

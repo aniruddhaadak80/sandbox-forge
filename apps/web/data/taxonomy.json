@@ -342,7 +342,7 @@
   ],
   "__provenance": {
     "source": "taxonomies/asi-control-baseline.json",
-    "sha256_16": "2aab027e24ea1f83",
+    "sha256_16": "c3adac19fbae6362",
     "generatedBy": "scripts/sync-web-data.mjs"
   }
 }

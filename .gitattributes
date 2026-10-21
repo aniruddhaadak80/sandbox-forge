@@ -1,0 +1,8 @@
+# The web-data drift gate hashes these files and compares the committed copy byte-for-byte, so
+# their line endings must not depend on who checked them out. Git's default on Windows
+# (core.autocrlf=true) rewrites LF to CRLF in the working tree while CI checks out LF, which
+# made a snapshot refreshed on one machine look stale on another. Pin them to LF so the digest
+# names the content, not the machine that produced it.
+taxonomies/*.json text eol=lf
+certificates/*.json text eol=lf
+apps/web/data/*.json text eol=lf

@@ -35,6 +35,15 @@ const SOURCES = {
 
 const check = process.argv.includes('--check')
 
+/**
+ * Line endings are not content. Git checks a file out with CRLF on a Windows clone
+ * (core.autocrlf=true) and with LF on a Linux one, and an editor may write either. Hashing and
+ * comparing the raw bytes would make the provenance digest a property of the machine that ran
+ * the generator instead of the content it describes — a snapshot refreshed on Windows would be
+ * reported as stale on CI, forever. Normalising first keeps the gate about content.
+ */
+const normalise = (text) => text.replace(/\r\n/g, '\n')
+
 const digest = (text) => createHash('sha256').update(text).digest('hex').slice(0, 16)
 
 const results = []
@@ -44,7 +53,7 @@ for (const [name, relative] of Object.entries(SOURCES)) {
 
   let raw
   try {
-    raw = readFileSync(sourcePath, 'utf8')
+    raw = normalise(readFileSync(sourcePath, 'utf8'))
   } catch (cause) {
     console.error(`sync-web-data — cannot read ${relative}: ${String(cause)}`)
     process.exit(1)
@@ -52,7 +61,7 @@ for (const [name, relative] of Object.entries(SOURCES)) {
 
   // Re-serialise through JSON.parse/stringify so the snapshot is canonical regardless of how the
   // source file happens to be indented. The provenance stamp travels with the data, so a stale
-  // copy can always be traced back to the exact bytes it came from.
+  // copy can always be traced back to the exact content it came from.
   const provenance = {
     source: relative,
     sha256_16: digest(raw),
@@ -69,7 +78,7 @@ for (const [name, relative] of Object.entries(SOURCES)) {
     } catch {
       /* treated as stale below */
     }
-    if (current !== payload) {
+    if (current === null || normalise(current) !== payload) {
       console.error(
         `sync-web-data — ${targetPath.replace(`${ROOT}\\`, '')} is stale.\n` +
           `  source: ${relative} (sha256:${provenance.sha256_16})\n` +

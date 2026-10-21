@@ -12,6 +12,15 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Tests for the certificate layer: the id guard that keeps a certificate id a bare filename
   stem, every way loading a certificate or a taxonomy can fail, and the rule that a capability
   pack may not redeclare a facet or a probe case.
+- The web-data drift gate (`npm run check:web-data`) now runs in CI, so the web app's copy of
+  the taxonomy and the certificate cannot drift from their source unnoticed.
+
+### Fixed
+
+- The web-data drift gate compares content instead of line endings, and `.gitattributes` pins
+  the taxonomy, the certificate, and the web snapshot to LF. A snapshot refreshed on a Windows
+  clone was reported as stale on CI because Git checked the source out with CRLF there and LF on
+  the runner; the provenance digest now names the content, not the machine that produced it.
 
 ## [0.1.0] - 2026-01-01
 

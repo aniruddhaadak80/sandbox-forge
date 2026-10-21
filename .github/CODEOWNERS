@@ -1,0 +1,18 @@
+# Code owners for sandbox-forge
+#
+# The branch protection in .github/branch-protection.json requires one approving
+# review before anything lands on main. Without a CODEOWNERS file GitHub has
+# nobody to request that review from, so the rule is either satisfied by
+# habit or waived by an admin every single time. This file makes the owner the
+# default reviewer for every path, and names the areas that carry the product's
+# claims separately.
+/apps/ @aniruddhaadak80
+/packages/ @aniruddhaadak80
+/services/ @aniruddhaadak80
+/certificates/ @aniruddhaadak80
+/taxonomies/ @aniruddhaadak80
+/plugins/ @aniruddhaadak80
+/skills/ @aniruddhaadak80
+/scripts/ @aniruddhaadak80
+/docs/ @aniruddhaadak80
+* @aniruddhaadak80

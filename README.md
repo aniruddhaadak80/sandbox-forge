@@ -197,9 +197,17 @@ node packages/cli/dist/bin.js mcp serve
 
 ### 6. Read a committed certificate on the web
 
+Live: **https://sandbox-forge.vercel.app**
+
 The deployed app renders a real committed certificate, not sample data. It is a **reader**, never a
 second planner: recomputation lives in the CLI and the MCP server, so there is exactly one
 implementation of what "covered" means.
+
+It also ships the taxonomy and certificate as a snapshot under `apps/web/data/`, generated from the
+repository's own artifacts by `scripts/sync-web-data.mjs`. The app is deployed with `apps/web` as its
+project root, so it cannot import files from the repository root — see ADR 0003. `npm run
+check:web-data` fails if that snapshot ever drifts from its source, so there is still exactly one
+source of truth.
 
 ## Architecture
 
@@ -314,6 +322,7 @@ npm run check:theme-tokens    # a raw colour literal outside styles/tokens.css f
 npm run check:boundaries      # no cross-package deep imports
 npm run check:public-hygiene
 npm run check:readme-commands # every command in this file is a real npm script or binary
+npm run check:web-data       # the web snapshot has not drifted from taxonomies/ + certificates/
 ```
 
 The Python engine carries its own gates:

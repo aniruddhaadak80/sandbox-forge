@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { spawn } from 'node:child_process'
 import { join } from 'node:path'
-import taxonomyDocument from '../../../../../taxonomies/asi-control-baseline.json'
+import taxonomyDocument from '../../../data/taxonomy.json'
 
 /**
  * Plan over HTTP, against the real Python engine.
@@ -25,6 +25,9 @@ interface EngineResponse {
 const TIMEOUT_MS = 8000
 
 function callEngine(op: string, input: unknown): Promise<EngineResponse> {
+  // The engine ships outside apps/web and therefore outside this deployment (see
+  // .vercelignore in the repository root and ADR 0003). The path is resolved rather than assumed
+  // so that running the app locally from the full checkout still reaches the real engine.
   const engineRoot = join(process.cwd(), '..', '..', 'services', 'engine', 'src')
   const python = process.env.SANDBOX_FORGE_PYTHON ?? 'python'
 

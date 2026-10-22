@@ -9,6 +9,8 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- The Python test job caches pip downloads, so the engine's test dependencies are not
+  re-downloaded on every run.
 - Tests for the certificate layer: the id guard that keeps a certificate id a bare filename
   stem, every way loading a certificate or a taxonomy can fail, and the rule that a capability
   pack may not redeclare a facet or a probe case.
